@@ -2,7 +2,7 @@ import Notiflix from 'notiflix';
 import { PixibuyApi } from './js/pixabay-api';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-// import axios from 'axios';
+
 
 const formEl = document.querySelector('.js-search-form');
 const inputEl = document.querySelector('.js-search-input');
@@ -13,7 +13,7 @@ const loadMoreBtnEl = document.querySelector('.js-load-more-btn');
 loadMoreBtnEl.style.display = 'none';
 
 const pixibuyApi = new PixibuyApi();
-// console.log('pixibuyApi :', pixibuyApi);
+
 
 let lightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
@@ -43,27 +43,29 @@ const onSearchFormSubmit = async event => {
   galleryEL.innerHTML = '';
 
   pixibuyApi.query = event.currentTarget.elements.searchQuery.value;
-  //   console.log('query :', pixibuyApi.query);
+  
   pixibuyApi.resetPage();
   try {
     const { data } = await pixibuyApi.fetchPhotos();
-    // console.log('data :', data);
+   
     if (data.totalHits === 0) {
-      // console.log('data1 :', data.totalHits);
+     
       Notiflix.Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
       loadMoreBtnEl.style.display = 'none';
+    }
+      else if (data.totalHits <= 40) {
+        markupGalleryItems(data.hits);
+  
+        loadMoreBtnEl.style.display = 'none';
     } else {
       Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
-      //   console.log('data2 :', data.hits);
+    
       markupGalleryItems(data.hits);
       lightbox.refresh();
       loadMoreBtnEl.style.display = 'none';
       loadMoreBtnEl.style.display = 'block';
-      //   const { height: cardHeight } = document
-      //     .querySelector('.gallery')
-      //     .firstElementChild.getBoundingClientRect();
     }
   } catch (error) {
     console.log('error :', error);
