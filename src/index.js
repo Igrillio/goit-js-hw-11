@@ -7,7 +7,6 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 const formEl = document.querySelector('.js-search-form');
 const inputEl = document.querySelector('.js-search-input');
 const galleryEL = document.querySelector('.gallery');
-const closeBtnEl = document.querySelector('.js-btn-close');
 const loadMoreBtnEl = document.querySelector('.js-load-more-btn');
 
 loadMoreBtnEl.style.display = 'none';
@@ -20,23 +19,6 @@ let lightbox = new SimpleLightbox('.gallery a', {
 });
 
 closeBtnEl.style.display = 'none';
-
-inputEl.addEventListener('focus', () => {
-  setTimeout(() => {
-    closeBtnEl.style.display = 'block';
-  }, 1000);
-});
-
-closeBtnEl.addEventListener('click', event => {
-  inputEl.value = '';
-  event.target.style.display = 'none';
-});
-
-inputEl.addEventListener('blur', () => {
-  setTimeout(() => {
-    closeBtnEl.style.display = 'none';
-  }, 1000);
-});
 
 const onSearchFormSubmit = async event => {
   event.preventDefault();
