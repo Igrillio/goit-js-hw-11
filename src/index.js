@@ -7,6 +7,7 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 const formEl = document.querySelector('.js-search-form');
 const inputEl = document.querySelector('.js-search-input');
 const galleryEL = document.querySelector('.gallery');
+const closeBtnEl = document.querySelector('.js-btn-close');
 const loadMoreBtnEl = document.querySelector('.js-load-more-btn');
 
 loadMoreBtnEl.style.display = 'none';
